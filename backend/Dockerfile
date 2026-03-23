@@ -1,5 +1,4 @@
-# ── Build stage ────────────────────────────────────────────────────────
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM amazoncorretto:17-alpine AS build
 WORKDIR /app
 COPY pom.xml .
 COPY mvnw .
@@ -7,8 +6,7 @@ COPY .mvn .mvn
 COPY src ./src
 RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-# ── Runtime stage ───────────────────────────────────────────────────────
-FROM eclipse-temurin:17-jre-jammy
+FROM amazoncorretto:17-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
