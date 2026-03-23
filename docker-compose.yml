@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+
+  # ── MySQL Database ──────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: nova_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE:      nova_db
+      MYSQL_USER:          nova_user
+      MYSQL_PASSWORD:      nova_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Spring Boot Backend ─────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nova_backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_USERNAME: nova_user
+      DB_PASSWORD: nova_pass
+      JWT_SECRET:  change-this-secret-in-production-min-32-chars
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/nova_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    ports:
+      - "8080:8080"
+
+  # ── React Frontend ──────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nova_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    environment:
+      VITE_API_URL: http://backend:8080
+
+volumes:
+  mysql_data:
