@@ -42,8 +42,7 @@ public class NotificationController {
     }
 
     // ── PATCH /api/notifications/{id}/read ────────────────────────────
-    @SuppressWarnings("null")
-    @SuppressWarnings("null")
+    @SuppressWarnings({"unchecked", "unused"})
     @PatchMapping("/{id}/read")
     public NotifDto markRead(@PathVariable Long id, Authentication auth) {
         User user = currentUser(auth);

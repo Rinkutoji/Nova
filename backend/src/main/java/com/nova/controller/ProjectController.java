@@ -41,7 +41,6 @@ public class ProjectController {
 
     // ── POST /api/projects ────────────────────────────────────────────
     @SuppressWarnings("null")
-    @SuppressWarnings("null")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProjectDto createProject(@Valid @RequestBody ProjectRequest req, Authentication auth) {
@@ -99,8 +98,7 @@ public class ProjectController {
     }
 
     // ── DELETE /api/projects/{id} ─────────────────────────────────────
-    @SuppressWarnings("null")
-    @SuppressWarnings("null")
+    @SuppressWarnings({"unchecked", "unused"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProject(@PathVariable Long id, Authentication auth) {
