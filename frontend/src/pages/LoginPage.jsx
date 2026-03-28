@@ -80,15 +80,21 @@ export default function LoginPage() {
           display: flex; align-items: center; gap: 10px; text-decoration: none;
         }
         .lp-logo-icon {
-          width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-          background: linear-gradient(135deg, #6ee7b7, #818cf8);
+          width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+          background: linear-gradient(140deg, #0f172a 0%, #0f172a 100%);
           display: flex; align-items: center; justify-content: center;
-          font-size: 15px; color: #042c1e; font-weight: 800;
-          box-shadow: 0 0 16px rgba(110,231,183,0.2);
+          box-shadow: 0 0 0 1px rgba(110,231,183,0.25), 0 0 22px rgba(110,231,183,0.18);
+          overflow: hidden; position: relative;
         }
+        .lp-logo-icon svg { display:block; }
         .lp-logo-name {
           font-family: 'Syne', sans-serif;
-          font-weight: 800; font-size: 16px; color: #f0f0f0; letter-spacing: -0.3px;
+          font-weight: 800; font-size: 17px; color: #f0f0f0; letter-spacing: -0.5px;
+        }
+        .lp-logo-name em {
+          font-style: normal;
+          background: linear-gradient(110deg, #6ee7b7, #818cf8);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .lp-nav-link {
           font-size: 13px; color: rgba(255,255,255,0.4);
@@ -333,8 +339,56 @@ export default function LoginPage() {
       {/* Nav */}
       <nav className="lp-nav a0">
         <Link to="/" className="lp-logo">
-          <div className="lp-logo-icon">✦</div>
-          <span className="lp-logo-name">Nova</span>
+          <div className="lp-logo-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 2L19.5 7V15L11 20L2.5 15V7L11 2Z"
+                fill="url(#lg1)"
+                stroke="rgba(110,231,183,0.3)"
+                strokeWidth="0.5"
+              />
+              <path
+                d="M11 5.5L16.5 8.75V15.25L11 18.5L5.5 15.25V8.75L11 5.5Z"
+                fill="rgba(255,255,255,0.06)"
+              />
+              <circle cx="11" cy="11" r="3" fill="url(#lg2)" />
+              <circle cx="11" cy="11" r="1.2" fill="white" opacity="0.9" />
+              <defs>
+                <linearGradient
+                  id="lg1"
+                  x1="2.5"
+                  y1="2"
+                  x2="19.5"
+                  y2="20"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stopColor="#6ee7b7" />
+                  <stop offset="50%" stopColor="#3b82f6" />
+                  <stop offset="100%" stopColor="#818cf8" />
+                </linearGradient>
+                <linearGradient
+                  id="lg2"
+                  x1="8"
+                  y1="8"
+                  x2="14"
+                  y2="14"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stopColor="#ffffff" />
+                  <stop offset="100%" stopColor="#6ee7b7" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span className="lp-logo-name">
+            No<em>va</em>
+          </span>
         </Link>
         <Link to="/register" className="lp-nav-link">
           New account →
